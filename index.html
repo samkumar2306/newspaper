@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>இந்து தமிழ் திசை – Tamil Daily</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Serif Tamil', 'Tamil MN', serif; background: #f0ece0; color: #111; }
+  .page { max-width: 900px; margin: 20px auto; padding: 10px 12px; border: 1px solid #888; background: #fff; font-size: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+
+  /* Top bar */
+  .top-bar { display: flex; align-items: center; justify-content: space-between; font-size: 10px; border-bottom: 1px solid #555; padding-bottom: 3px; margin-bottom: 5px; color: #333; }
+
+  /* Masthead */
+  .header-top { display: grid; grid-template-columns: 90px 1fr 90px; align-items: center; gap: 6px; padding-bottom: 4px; }
+  .scan-box { border: 1px solid #aaa; padding: 4px; text-align: center; font-size: 9px; }
+  .qr-placeholder { width: 44px; height: 44px; background: #eee; margin: 0 auto 2px; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #888; border: 1px solid #ccc; }
+  .masthead { text-align: center; }
+  .masthead-title { font-size: 50px; font-weight: 900; letter-spacing: -1px; line-height: 1; color: #111; font-family: serif; }
+  .masthead-tagline { font-size: 11px; color: #444; margin: 2px 0; }
+  .masthead-sub { display: flex; justify-content: space-between; align-items: center; font-size: 9.5px; padding: 3px 4px; border-top: 1.5px solid #555; border-bottom: 1.5px solid #555; margin-top: 3px; color: #222; }
+
+  /* Meta bar */
+  .meta-bar { font-size: 9px; color: #555; display: flex; gap: 12px; border-top: 1px solid #aaa; border-bottom: 1px solid #aaa; padding: 2px 4px; margin-bottom: 5px; }
+  .meta-bar span:last-child { margin-left: auto; }
+
+  /* Red edition bar */
+  .edition-bar { background: #c00; color: #fff; text-align: center; font-size: 11px; font-weight: 700; padding: 3px 0; margin-bottom: 4px; }
+
+  /* Main headline */
+  .main-headline { text-align: center; border-bottom: 2px solid #222; padding: 5px 0 7px; margin-bottom: 6px; }
+  .main-headline h1 { font-size: 28px; font-weight: 900; line-height: 1.2; color: #111; }
+  .main-headline .sub-hed { font-size: 13px; font-weight: 700; margin-top: 5px; display: flex; align-items: center; gap: 6px; justify-content: center; }
+  .arrow-badge { background: #c00; color: #fff; padding: 2px 7px; font-size: 11px; border-radius: 2px; flex-shrink: 0; }
+
+  /* Content grid */
+  .content-grid { display: grid; grid-template-columns: 58px 1fr 1fr 1fr 145px; border-top: 1.5px solid #aaa; }
+
+  /* Sidebar dates */
+  .sidebar-dates { border-right: 1px solid #aaa; padding: 4px 2px; }
+  .date-item { border-bottom: 1px solid #ddd; padding: 8px 0; text-align: center; }
+  .date-item:last-child { border-bottom: none; }
+  .date-num { font-size: 30px; font-weight: 900; line-height: 1; color: #111; }
+  .date-label { font-size: 8.5px; color: #555; margin-top: 2px; }
+
+  /* Story columns */
+  .col { padding: 6px 8px; border-right: 1px solid #aaa; font-size: 11px; line-height: 1.6; }
+  .col p { margin-bottom: 6px; text-align: justify; }
+  .col-img { text-align: center; margin: 6px 0; }
+  .photo-placeholder { background: #ddd; width: 100%; height: px; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #888; border: 1px solid #bbb; }
+  .img-caption { font-size: 8.5px; color: #555; margin-top: 3px; line-height: 1.4; text-align: center; }
+  .quote-line { font-style: italic; border-left: 3px solid #c00; padding-left: 6px; margin: 6px 0; font-size: 10px; color: #333; line-height: 1.5; }
+
+  /* Right sidebar */
+  .right-sidebar { padding: 6px; border-left: 1px solid #aaa; font-size: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .ramaj-ad { background: #1a1a8c; color: #fff; text-align: center; padding: 8px 6px; font-size: 10px; }
+  .ramaj-ad .title { font-size: 13px; font-weight: 700; }
+  .insta-ad { background: #ff6600; color: #fff; text-align: center; padding: 8px 6px; font-size: 11px; font-weight: 700; line-height: 1.4; }
+  .insta-ad .warranty { font-size: 9px; font-weight: 400; margin-top: 2px; }
+  .small-ad { border: 1px solid #aaa; padding: 6px; text-align: center; background: #f9f9f9; }
+  .small-ad .ad-title { font-size: 11px; font-weight: 700; color: #0044aa; }
+
+  /* Second story */
+  .second-story { border-top: 2px solid #444; padding: 6px 8px; margin-top: 0; }
+  .section-label { background: #222; color: #fff; font-size: 11px; font-weight: 700; padding: 2px 8px; display: inline-block; margin-bottom: 6px; }
+  .story-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .story-cols p { font-size: 11px; line-height: 1.6; text-align: justify; margin-bottom: 6px; }
+
+  /* Bottom section */
+  .bottom-section { border-top: 2.5px solid #111; margin-top: 6px; padding: 6px 8px 0; }
+  .bottom-note { text-align: center; font-size: 10px; color: #555; margin-bottom: 3px; }
+  .bottom-headline { font-size: 20px; font-weight: 900; text-align: center; margin-bottom: 4px; line-height: 1.3; }
+  .bottom-sub { font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 6px; margin-bottom: 8px; justify-content: center; }
+  .bottom-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .bottom-cols p { font-size: 11px; line-height: 1.6; text-align: justify; margin-bottom: 6px; }
+  .person-photo { float: right; margin: 0 0 6px 8px; width: 88px; height: 110px; background: #ddd; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #888; border: 1px solid #bbb; }
+
+  /* Muthoot ad */
+  .muthoot-ad { border: 2px solid #c8a000; padding: 8px; text-align: center; background: #fffbee; }
+  .muthoot-verse { font-size: 8.5px; color: #666; text-align: right; margin-bottom: 4px; font-style: italic; }
+  .muthoot-name { font-size: 15px; font-weight: 900; color: #0044aa; letter-spacing: 0.5px; }
+  .muthoot-dates { font-size: 10px; color: #444; margin: 2px 0; }
+  .muthoot-legacy { font-size: 11px; font-style: italic; color: #333; margin: 3px 0; }
+  .muthoot-logos { font-size: 8.5px; color: #555; margin-top: 4px; line-height: 1.5; }
+  .muthoot-brand { font-size: 14px; font-weight: 900; color: #0044aa; margin-top: 4px; }
+  .muthoot-belief { font-size: 9px; font-style: italic; color: #888; }
+  .muthoot-stats { display: flex; justify-content: space-around; font-size: 8px; color: #555; margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <span>TAMLIH</span>
+    <span>Chennai &nbsp;|&nbsp; 5 &nbsp;|&nbsp; Print_Pg</span>
+    <span>221/65</span>
+  </div>
+
+  <!-- Masthead row -->
+  <div class="header-top">
+    <div class="scan-box">
+      <div class="qr-placeholder">QR</div>
+      <div>SCAN FOR E-PAPER OFFER</div>
+    </div>
+    <div class="masthead">
+      <div class="masthead-title">இந்து தமிழ் திசை</div>
+      <div class="masthead-tagline">தமிழிடை இணையவோம்</div>
+      <div class="masthead-sub">
+        <span>INDHU TAMIZH THISAI – TAMIL DAILY</span>
+        <span>சென்னை பதிப்பு (CHENNAI) &nbsp;|&nbsp; திங்கட், ஏப்ரல் 13, 2026</span>
+      </div>
+    </div>
+    <div class="scan-box">
+      <div class="qr-placeholder">QR</div>
+      <div>DOWNLOAD OUR APP NOW</div>
+    </div>
+  </div>
+
+  <!-- Meta info bar -->
+  <div class="meta-bar">
+    <span>★ Printed at: Chennai, Kovai, Madurai, Tiruchirapalli, Thiruvananthapuram, Bengaluru</span>
+    <span>RNI No: TN76A2019/79849 &nbsp;|&nbsp; Vol:III No:102</span>
+    <span>15 பக்கங்கள் ₹8</span>
+  </div>
+
+  <!-- Red headline banner -->
+  <div class="edition-bar">
+    அணு ஆயுதம், ஹார்மூஸ் ஜலசந்தி விவகாரத்தில் உடன்பாடு ஏற்படாததால்
+  </div>
+
+  <!-- Main headline -->
+  <div class="main-headline">
+    <h1>பாகிஸ்தானில் நடந்த பேச்சுவார்த்தை தோல்வி</h1>
+    <div class="sub-hed">
+      <span class="arrow-badge">↩</span>
+      <span>ஈரான் மீது கடும் பொருளாதாரத் தடைகளை விதிக்க அமெரிக்கா திட்டம்</span>
+    </div>
+  </div>
+
+  <!-- Main content grid -->
+  <div class="content-grid">
+
+    <!-- Left sidebar: dates -->
+    <div class="sidebar-dates">
+      <div class="date-item">
+        <div class="date-num">2</div>
+        <div class="date-label">புரட்சி சினிமா</div>
+      </div>
+      <div class="date-item">
+        <div class="date-num">8</div>
+        <div class="date-label">நடப்புக்கள்</div>
+      </div>
+      <div class="date-item">
+        <div class="date-num">10</div>
+        <div class="date-label">நகை பரிமாற்று</div>
+      </div>
+      <div class="date-item">
+        <div class="date-num">16</div>
+        <div class="date-label">தொக்குதல்</div>
+      </div>
+    </div>
+
+    <!-- Column 1 -->
+    <div class="col">
+      <p>அமெரிக்கா – ஈரான் இடையே அணு ஆயுத உடன்படிக்கை குறித்த பேச்சுவார்த்தை தோல்வியடைந்தது. ஹார்மூஸ் ஜலசந்தி, அணு ஆயுதம் குறித்த கருத்து வேறுபாட்டால் 21 மணி நேர பேச்சுவார்த்தை தோல்வியடைந்தது.</p>
+      <p>இரு தரப்பினரும் கடுமையான நிலைப்பாடுகளை கைவிட மறுத்தனர். அமெரிக்க பிரதிநிதிகள் உடனடி தீர்வை எதிர்பார்த்தனர்; ஈரான் பிரதிநிதிகள் ஹார்மூஸ் ஜலசந்தி கட்டுப்பாட்டில் சமரசம் மறுத்தனர்.</p>
+      <p>ஈரான் தூதர்கள் நிலையான அணு உரிமைகளை வலியுறுத்தினர். தொடர்பான நடவடிக்கைகள் ஐ.நா சபை அளவில் எடுக்கப்படலாம் என அஞ்சப்படுகிறது.</p>
+      <p>இரு நாடுகளுக்கிடையேயான உறவு மேலும் விரிசல் அடைந்துள்ளது. சர்வதேச நடுவர்கள் மேலும் தலையீட்டிற்கு வாய்ப்பு உண்டு என்று சொல்லப்படுகிறது.</p>
+    </div>
+
+    <!-- Column 2: photo -->
+    <div class="col">
+      <div class="col-img">
+        <div class="photo-placeholder"> <img src="images\img7.png"> </div>
+        <div class="img-caption">இஸ்லாமாபாத்தில் நடந்த பேச்சுவார்த்தையில் கலந்துகொண்ட அமெரிக்க, ஈரான் தூதர்கள். நடுவில், ஓமான் தூதர். (படம்: கெட்டி)</div>
+      </div>
+      <p>சம்பந்தப்பட்ட நாடுகளுக்கு இடையிலான உறவு மேலும் சிக்கலடையும் என்று நிபுணர்கள் கருதுகின்றனர்.</p>
+      <p>அமெரிக்கா கூடுதல் பொருளாதார தடைகளை விதிக்கும் என அறிவித்துள்ளது. ஈரானின் எண்ணெய் ஏற்றுமதி கடுமையாக பாதிக்கப்படும் என எதிர்பார்க்கப்படுகிறது.</p>
+    </div>
+
+    <!-- Column 3 -->
+    <div class="col">
+      <p>3 விஷயங்கள் என்ன? ஈரான் நிலைப்பாட்டை அமெரிக்கா 21 மணி நேர பேச்சுவார்த்தையிலும் மாற்ற முடியவில்லை. ஐ.நா பாதுகாப்பு சபையில் இதுவரை 14 முறை விதிக்கப்பட்ட தடைகள் பயனளிக்கவில்லை என்று சொல்லப்படுகிறது.</p>
+      <div class="quote-line">"அமெரிக்காவும் ஈரானும் ஒப்புக்கொள்ளவில்லை – பாகிஸ்தான் மத்தியஸ்தம் தோல்வி"</div>
+      <p>ஈரானின் அணு திட்டம் தொடரும் என்று எதிர்பார்க்கப்படுகிறது. உலக நாடுகளின் கூட்டமைப்பு கவலை தெரிவித்துள்ளது.</p>
+      <p>கூடுதல் தடைகள் விதிக்கப்பட்டால் ஈரான் ஜலசந்தியை மூடுவதாக அச்சுறுத்தியுள்ளது. இந்தியா உட்பட பல நாடுகளுக்கு இது கடுமையான விளைவை ஏற்படுத்தும்.</p>
+    </div>
+
+    <!-- Right sidebar -->
+    <div class="right-sidebar">
+      <div class="ramaj-ad">
+        <div class="title">RAMAJ TV</div>
+        <div>செய்திகள் | நேரலை</div>
+      </div>
+      <div class="insta-ad">
+        <div>INSTA</div>
+        <div>DHOTIS</div>
+        <div class="warranty">5yr warranty</div>
+      </div>
+      <div class="small-ad">
+        <div class="ad-title">மூட்டுவலி</div>
+        <div style="font-size:9px; color:#444; margin-top:2px;">முழுமையான தீர்வு</div>
+        <div style="font-size:8.5px; color:#777; margin-top:2px;">டாக்டர் ஆலோசனை பெறுங்கள்</div>
+      </div>
+    </div>
+  </div><!-- end content-grid -->
+
+  <!-- Second story: Hormuz -->
+  <div class="second-story">
+    <div class="section-label">ஹார்மூஸ் ஜலசந்தி முடப்பு: ட்ரம்ப் அறிவிப்பால் பதற்றம்</div>
+    <div class="story-cols">
+      <div>
+        <p>தலைமை நிலை அலுவலகத்தில் ட்ரம்ப் அதிரடி அறிவிப்பு வெளியிட்டுள்ளார். ஹார்மூஸ் ஜலசந்தி முடக்கப்பட்டால் உலக எண்ணெய் விலை 40% உயரும் என்று நிபுணர்கள் எச்சரிக்கின்றனர்.</p>
+        <p>ஈரான், ஒமான், UAE ஆகிய நாடுகள் ஜலசந்தி பகுதியில் உள்ளன. ஈரான் ஜலசந்தியை மூடுவதாக அச்சுறுத்தியுள்ளது.</p>
+      </div>
+      <div>
+        <p>இந்தியா உட்பட பல நாடுகளுக்கு எண்ணெய் இறக்குமதி பாதிக்கும். சர்வதேச கப்பல் போக்குவரத்தும் பாதிக்கப்படும்.</p>
+        <p>அமெரிக்க கடற்படை கப்பல்கள் பகுதியில் நிலை கொண்டுள்ளன. ட்ரம்ப் நேரடி தலையீட்டிற்கு தயார் என்று தெரிவித்துள்ளார்.</p>
+      </div>
+      <div>
+        <p>உலக சந்தைகளில் கச்சா எண்ணெய் விலை உயர்வு பதிவாகியுள்ளது. பங்குச் சந்தைகள் வீழ்ச்சி கண்டன.</p>
+        <p>ஐ.நா பொதுச் சபை அவசர கூட்டம் கூட வாய்ப்பு உள்ளது என்று தெரிவிக்கப்படுகிறது.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom story: Asha Bhosle -->
+  <div class="bottom-section">
+    <div class="bottom-note">தமிழில் 'சென்பகமே சென்பகமே' பாடல் பாரபயன்</div>
+    <div class="bottom-headline">பிரபல பின்னணிப் பாடகி ஆஷா போஸ்லே காலமானார்</div>
+    <div class="bottom-sub">
+      <span class="arrow-badge">↩</span>
+      <span>பிரதமர் மோடி, தலைவர்கள் இரங்கல்</span>
+    </div>
+    <div class="bottom-cols">
+      <div>
+        <p>இந்திய பின்னணி பாடகியாக பல தசாப்தங்களாக விளங்கிய ஆஷா போஸ்லே காலமானார். அவரது வயது 92. 1943-ல் பிறந்த ஆஷா, 2 லட்சம் பாடல்களுக்கு மேல் பாடியுள்ளார்.</p>
+        <p>2000-ல் கின்னஸ் சாதனை படைத்தவர். 10 வயதிலேயே பாட ஆரம்பித்தவர். 1966 முதல் 1989 வரை அனைத்து படங்களிலும் பாடியுள்ளார்.</p>
+      </div>
+      <div>
+        <div class="person-photo"><img src="images\img2.png"></div>
+        <p>தமிழ், தெலுங்கு, கன்னட, மலையாளம், இந்தி மொழிகளில் பாடியுள்ளார். 2 ஃபிலிம்ஃபேர் விருதுகள் பெற்றவர்.</p>
+        <p>பிரதமர் மோடி இரங்கல் தெரிவித்தார். "இந்திய இசையின் பொக்கிஷம் மறைந்தது" என்று பல தலைவர்கள் கூறினர்.</p>
+      </div>
+      <div>
+        <div class="muthoot-ad">
+          <div class="muthoot-verse">Lord, all our success is because of what You have done. — Isaiah 26:12</div>
+          <div class="muthoot-name">PAPPACHAN MUTHOOT</div>
+          <div class="muthoot-dates">29.12.1927 – 13.04.2004</div>
+          <div class="muthoot-legacy">A Forever Legacy</div>
+          <div class="muthoot-logos">
+            Muthoot Finance · Muthoot Capital · Muthoot Housing Finance<br>
+            Muthoot Fincorp · Muthoot Microfin
+          </div>
+          <div class="muthoot-brand">muthoot</div>
+          <div class="muthoot-belief">Blue is Belief</div>
+          <div class="muthoot-stats">
+            <span>5800+<br>Branches</span>
+            <span>64000+<br>Employees</span>
+            <span>₹22Million+<br>Customers</span>
+            <span>9.5Million<br>Active Loans</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .page -->
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>இந்து தமிழ் திசை – இரண்டாம் பக்கம்</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Serif Tamil', 'Tamil MN', Georgia, serif; background: #e8e4d8; color: #111; font-size: 11px; }
+  .page { max-width: 920px; margin: 16px auto; padding: 8px 10px; border: 1px solid #888; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.18); }
+
+  /* ── TOP BAR ── */
+  .top-bar { display: flex; justify-content: space-between; font-size: 9px; color: #444; border-bottom: 1px solid #555; padding-bottom: 3px; margin-bottom: 4px; }
+
+  /* ── PAGE HEADER ── */
+  .page-header { display: grid; grid-template-columns: 200px 1fr 200px; gap: 6px; border-bottom: 2px solid #222; padding-bottom: 5px; margin-bottom: 5px; align-items: start; }
+  .header-left-box { border: 1px solid #aaa; padding: 5px 6px; font-size: 9px; line-height: 1.5; background: #fafafa; }
+  .header-left-box .label { font-weight: 700; color: #c00; font-size: 9px; margin-bottom: 2px; }
+  .header-center { text-align: center; }
+  .page-title { font-size: 38px; font-weight: 900; font-family: serif; line-height: 1; }
+  .page-subtitle { font-size: 11px; color: #444; margin-top: 2px; }
+  .page-date { font-size: 10px; color: #333; margin-top: 3px; border-top: 1px solid #bbb; padding-top: 3px; }
+  .header-right-box { border: 1px solid #aaa; padding: 5px 6px; font-size: 9px; line-height: 1.5; background: #fafafa; text-align: right; }
+  .header-right-box .label { font-weight: 700; color: #c00; font-size: 9px; margin-bottom: 2px; }
+
+  /* ── STORY SECTIONS ── */
+  .section-divider { border-top: 2px solid #111; margin: 6px 0 4px; }
+  .section-divider-thin { border-top: 1px solid #aaa; margin: 5px 0 4px; }
+
+  /* ── TOP STORY (5.73 crore) ── */
+  .top-story { border-bottom: 2px solid #222; padding-bottom: 6px; margin-bottom: 6px; }
+  .top-story-label { background: #c00; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 8px; display: inline-block; margin-bottom: 4px; }
+  .top-story-hed { font-size: 30px; font-weight: 900; line-height: 1.15; margin-bottom: 4px; }
+  .top-story-subhed { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+  .arrow-red { background: #c00; color: #fff; padding: 1px 6px; font-size: 10px; border-radius: 2px; }
+  .top-story-grid { display: grid; grid-template-columns: 180px 1fr 1fr 1fr 1fr; gap: 0; border-top: 1px solid #aaa; }
+  .photo-col { padding: 6px 8px 6px 0; border-right: 1px solid #aaa; }
+  .photo-box { background: #ccc; width: 100%; height: 140px; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #777; border: 1px solid #bbb; }
+  .photo-caption { font-size: 8px; color: #555; margin-top: 3px; line-height: 1.4; }
+  .story-col { padding: 6px 7px; border-right: 1px solid #aaa; line-height: 1.6; text-align: justify; }
+  .story-col:last-child { border-right: none; }
+  .story-col p { margin-bottom: 5px; }
+  .col-byline { font-size: 9px; color: #555; font-style: italic; margin-bottom: 4px; }
+
+  /* ── MIDDLE ROW: two stories side by side ── */
+  .mid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1.5px solid #111; border-bottom: 1.5px solid #111; margin-bottom: 6px; }
+  .mid-story { padding: 5px 8px; border-right: 1px solid #aaa; }
+  .mid-story:last-child { border-right: none; }
+  .mid-hed { font-size: 14px; font-weight: 900; line-height: 1.3; margin-bottom: 3px; }
+  .mid-subhed { display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; margin-bottom: 5px; color: #222; }
+  .mid-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .mid-cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .mid-cols p, .mid-cols-3 p { font-size: 10.5px; line-height: 1.6; text-align: justify; margin-bottom: 5px; }
+  .mid-photo { background: #ccc; width: 100%; height: 100px; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #777; border: 1px solid #bbb; margin-bottom: 4px; }
+
+  /* ── BOTTOM ROW: two stories side by side ── */
+  .bot-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1.5px solid #111; margin-bottom: 6px; }
+  .bot-story { padding: 5px 8px; border-right: 1px solid #aaa; }
+  .bot-story:last-child { border-right: none; }
+  .bot-hed { font-size: 13px; font-weight: 900; line-height: 1.3; margin-bottom: 3px; }
+  .bot-subhed { display: flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 700; margin-bottom: 5px; }
+  .bot-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .bot-cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .bot-cols p, .bot-cols-3 p { font-size: 10.5px; line-height: 1.6; text-align: justify; margin-bottom: 5px; }
+  .bot-photo { background: #ccc; width: 80px; height: 90px; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #777; border: 1px solid #bbb; float: right; margin: 0 0 4px 6px; }
+
+  /* ── FOOTER ROW ── */
+  .footer-row { border-top: 2px solid #111; display: grid; grid-template-columns: 58px 1fr 220px 180px; gap: 0; }
+  .footer-date-block { border-right: 1px solid #aaa; padding: 6px 4px; }
+  .big-date { font-size: 34px; font-weight: 900; line-height: 1; color: #111; }
+  .big-year { font-size: 20px; font-weight: 900; color: #111; }
+  .footer-date-label { font-size: 8px; color: #555; margin-top: 2px; }
+  .footer-info { padding: 5px 8px; border-right: 1px solid #aaa; font-size: 9px; line-height: 1.6; }
+  .footer-info .section-title { font-size: 10px; font-weight: 700; margin-bottom: 3px; border-bottom: 1px solid #aaa; padding-bottom: 2px; }
+  .footer-info table { width: 100%; font-size: 9px; border-collapse: collapse; }
+  .footer-info td { padding: 1px 3px; vertical-align: top; }
+  .footer-info .bold-td { font-weight: 700; }
+  .footer-ad1 { padding: 5px 8px; border-right: 1px solid #aaa; }
+  .nallathe-ad { border: 2px solid #1a5c1a; padding: 6px; height: 100%; }
+  .nallathe-title { font-size: 22px; font-weight: 900; color: #1a5c1a; text-align: center; line-height: 1; }
+  .nallathe-sub { font-size: 10px; color: #333; text-align: center; margin: 2px 0 4px; }
+  .nallathe-name { font-size: 12px; font-weight: 700; text-align: center; margin-bottom: 2px; }
+  .footer-ad2 { padding: 5px 6px; }
+  .lks-ad { border: 2px solid #c8a000; padding: 6px; text-align: center; background: #fffbee; height: 100%; }
+  .lks-legacy { font-size: 10px; font-weight: 700; color: #8B4513; }
+  .lks-name { font-size: 14px; font-weight: 900; color: #222; margin: 2px 0; }
+  .lks-since { font-size: 9px; color: #555; }
+  .lks-addr { font-size: 9px; color: #333; margin-top: 3px; }
+  .lks-slogan { font-size: 9px; font-style: italic; color: #8B4513; margin-top: 2px; border: 1px solid #c8a000; padding: 2px 4px; display: inline-block; }
+
+  /* ── FOOTER BOTTOM BAR ── */
+  .footer-bottom { border-top: 1px solid #aaa; display: flex; justify-content: space-between; font-size: 9px; padding: 3px 4px; color: #555; margin-top: 4px; }
+  .page-nums { display: flex; gap: 12px; }
+  .page-num-item { text-align: center; }
+  .page-num-item .num { font-size: 12px; font-weight: 900; color: #111; }
+
+  /* ── UTILITY ── */
+  p { text-align: justify; }
+  .chennai-tag { font-size: 9px; color: #c00; font-weight: 700; margin-bottom: 2px; }
+  .bold { font-weight: 700; }
+  .divider-v { border-right: 1px solid #aaa; }
+  .cross-mark { color: #c00; font-weight: 900; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <span>TAMLIH</span>
+    <span>Chennai &nbsp;|&nbsp; 5 &nbsp;|&nbsp; Second_Pg</span>
+    <span>221/00</span>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="header-left-box">
+      <div class="label">பொது அறிவிப்பு:</div>
+      <div>குட்டீஸ்கி்ர்விக்கு வழங்க ஆக அதிக உடல்பிர கண்படும் மலைவாழ் பந்திட்டான்<br>மிகவும் ஆர்வத்துடன் நிறைவ மாறினர்ப்படி, இங்க<br>குட்டீஸ்கி்ர்விக்கின் வழங்க நாம் அறிந்து<br>போனோமை.</div>
+    </div>
+    <div class="header-center">
+      <div class="page-title">இரண்டாம் பக்கம்</div>
+      <div class="page-subtitle">www.hindutamil.in</div>
+      <div class="page-date">திங்கட், ஏப்ரல் 13, 2026</div>
+    </div>
+    <div class="header-right-box">
+      <div class="label">விளம்பரம்:</div>
+      <div>இனம் அறிந்தவர் கண்பாலய நிறுவனம்<br>https://www.shivacsciencificlinica.com/ | ஈசான், மகிழ்<br>sdf/மின்னஞ்சல்:b.saravanan@... ஆய்வகம் கண்பாலய<br>கடல் உத்பதிப் செய்வய ஒப்பது பேற நுரையோரம்.</div>
+    </div>
+  </div>
+
+  <!-- ════ TOP STORY ════ -->
+  <div class="top-story">
+    <div style="text-align:center; margin-bottom:4px;">
+      <div class="top-story-label">சட்டப்பேரவை தேர்தலையொட்டி தமிழகம் முழுவதும்</div>
+    </div>
+    <div style="text-align:center;">
+      <div class="top-story-hed">5.73 கோடி பேருக்கு புத் சிலிப் விநியோகம் தொடக்கம்</div>
+    </div>
+    <div class="top-story-subhed" style="justify-content:center;">
+      <span class="arrow-red">↩</span>
+      <span>ஏப்.18-க்குள் முடிக்க தலைமை தேர்தல் அதிகாரி உத்தரவு</span>
+    </div>
+
+    <div class="top-story-grid">
+      <div class="photo-col">
+        <div class="photo-box">[சட்டப்பேரவை தேர்தல் வாக்குச்சீட்டு படம்]</div>
+        <div class="photo-caption">சட்டப்பேரவை தேர்தல் வாக்குப்பதிவு முடிவில், வாக்காளர்களுக்கான 'புத் சிலிப்' ஏ வழங்கும் பணி நேற்று தொடங்கியது. போட்டியாளர் பதிவியடைந்தை போட்டியாளர் (படம்: சென்னை)</div>
+      </div>
+      <div class="story-col">
+        <div class="chennai-tag">சென்னை</div>
+        <p>சட்டப்பேரவை தேர்தலையொட்டி தமிழகம் முழுவதும் 5.73 கோடி பேருக்கு புத் சிலிப் விநியோகம் தொடங்கியுள்ளது. ஒவ்வொரு வாக்காளரும் 75 பேர் அடங்கிய குழுக்களில் பிரிக்கப்பட்டு ஏப்.18-க்குள் முடிக்க தலைமை தேர்தல் அதிகாரி உத்தரவிட்டுள்ளார்.</p>
+        <p>மாவட்ட அளவில் 93 லட்சம் வாக்காளர்களுக்கு மட்டும் புத் சிலிப் விநியோகிக்கப்படும். இதற்காக 254 தொகுதிகளில் 4,023 பணியாளர்கள் நியமிக்கப்பட்டுள்ளனர்.</p>
+      </div>
+      <div class="story-col">
+        <p>மாவட்டங்களில் உள்ள 16 தொகுதிகளில் 2 கட்ட படிகளாக விநியோகிக்கப்படும். ஒட்டுமொத்தமாக 4,905 பேவர், 7,728 மடிவரும் தேர்தல் ஆணையத்துக்கு செல்கின்றன.</p>
+        <p>புத் சிலிப்பில் வாக்காளரின் பெயர், வாக்களிக்கும் நேரம், வாக்குச்சாவடி விவரங்கள் இடம்பெறும். வாக்காளர் அட்டையுடன் இதை சமர்ப்பிக்க வேண்டும்.</p>
+      </div>
+      <div class="story-col">
+        <p>இந்த முறை 4,085 பேர் குறைந்த வாக்குச்சாவடிகளில் மட்டும் 40 மட்டும் பிரிக்கப்பட்டுள்ளனர். மாற்றுத் திறனாளிகள் மற்றும் 85 வயதுக்கு மேற்பட்டோருக்கு தனி ஏற்பாடு செய்யப்பட்டுள்ளது.</p>
+        <p>முதியோர், மாற்றுத் திறனாளிகளுக்கு வீட்டிலேயே வாக்களிக்கும் வசதி ஏற்பாடு செய்யப்பட்டுள்ளது என்று தலைமை தேர்தல் அதிகாரி தெரிவித்தார்.</p>
+      </div>
+      <div class="story-col">
+        <p>தமிழகத்தில் மொத்தம் 6.28 கோடி வாக்காளர்கள் பதிவு செய்யப்பட்டுள்ளனர். 234 தொகுதிகளிலும் 17,000-க்கும் மேற்பட்ட வாக்குச்சாவடிகள் அமைக்கப்படும்.</p>
+        <p>தேர்தல் ஆணையம் இந்த முறை தொழில்நுட்ப உதவியுடன் வாக்களிப்பை நடத்த திட்டமிட்டுள்ளது. QR குறியீட்டுடன் கூடிய புத் சிலிப் வழங்கப்படும்.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ MIDDLE ROW ════ -->
+  <div class="mid-row">
+
+    <!-- Left mid story -->
+    <div class="mid-story">
+      <div style="font-size:11px; color:#555; margin-bottom:2px;">நெல்லுக்கான ஒக்கத்தொகை விவகாரம்</div>
+      <div class="mid-hed">மு.க.ஸ்டாலின் குற்றச்சாட்டு உண்மைக்கு புறம்பானது</div>
+      <div class="mid-subhed">
+        <span class="arrow-red">↩</span>
+        <span>மத்திய நிதியமைச்சர் நிர்மலா சீதாராமன் கண்டனம்</span>
+      </div>
+      <div class="mid-cols">
+        <div>
+          <div class="chennai-tag">சென்னை</div>
+          <p>தமிழக முதலமைச்சர் மு.க.ஸ்டாலின் நெல்லுக்கான ஒக்கத்தொகை குறித்து மத்திய அரசு மீது சுமத்திய குற்றச்சாட்டுகள் உண்மைக்கு புறம்பானவை என்று மத்திய நிதியமைச்சர் நிர்மலா சீதாராமன் கண்டனம் தெரிவித்தார்.</p>
+          <p>தமிழகத்திற்கு ஒக்கத்தொகை சரியான அளவில் வழங்கப்படுகிறது என்று தெரிவித்தார். இது தேர்தல் முன்னாள் அரசியல் குற்றச்சாட்டு என்று மத்திய அரசு கூறியது.</p>
+          <p>மாவட்ட அளவில் நெல் கொள்முதல் சரியாக நடைபெறுகிறது என்று கூறினார். மத்திய அரசு அனுப்பிய நிதி பயன்படுத்தப்படவில்லை என்று குற்றம் சாட்டினார்.</p>
+        </div>
+        <div>
+          <div class="mid-photo">[நிர்மலா சீதாராமன் படம்]</div>
+          <p>நிர்மலா சீதாராமன் செய்தியாளர்களிடம் பேசியபோது, மத்திய அரசு தமிழகத்திற்கு எப்போதும் நியாயமாக நடந்துகொண்டதாக கூறினார்.</p>
+          <p>அடுத்த கட்ட ஒக்கத்தொகை விரைவில் வழங்கப்படும் என்று உறுதியளித்தார். தேர்தல் நடத்துவதற்கான நிதி தயாராக உள்ளது என்றார்.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right mid story -->
+    <div class="mid-story">
+      <div style="font-size:11px; color:#555; margin-bottom:2px;">ஜனநாயகன் திரைப்படம் இணையதளங்களில்</div>
+      <div class="mid-hed">வெளியான விகாரத்தில் 6 பேர் கைது</div>
+      <div class="mid-subhed">
+        <span class="arrow-red">↩</span>
+        <span>சைபர் க்ரைம் போலீசார் நடவடிக்கை</span>
+      </div>
+      <div class="mid-cols-3">
+        <div>
+          <div class="chennai-tag">சென்னை</div>
+          <p>ஜனநாயகன் திரைப்படம் இணையதளங்களில் திருட்டு தனமாக பதிவேற்றப்பட்ட விவகாரத்தில் சைபர் க்ரைம் போலீசார் 6 பேரை கைது செய்துள்ளனர்.</p>
+          <p>திரைப்படம் வெளியான சில மணி நேரத்திலேயே பல வெப்சைட்டுகளில் பதிவேற்றப்பட்டது. தமிழ் சினிமா தயாரிப்பாளர் சங்கம் புகார் அளித்தது.</p>
+        </div>
+        <div>
+          <p>சைபர் க்ரைம் போலீசார் சிறப்பு குழு அமைத்து விசாரணை மேற்கொண்டனர். 48 மணி நேரத்தில் 6 பேரை கைது செய்தனர்.</p>
+          <p>கைதானவர்கள் வெவ்வேறு மாவட்டங்களைச் சேர்ந்தவர்கள். இணையதளங்கள் முடக்கப்பட்டுள்ளன.</p>
+        </div>
+        <div>
+          <p>இத்தகைய திருட்டு நடவடிக்கைகளை தடுக்க தமிழக அரசு கடுமையான நடவடிக்கை எடுக்கும் என்று போலீசார் தெரிவித்தனர்.</p>
+          <p>மேலும் விசாரணை நடைபெறுகிறது. கூடுதல் கைதுகள் நடக்கலாம் என்று போலீசார் கூறினர். இனம் அறிந்தவர் கண்பாலய நிறுவனம் இது குறித்து அறிவிப்பு வெளியிட்டது.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ BOTTOM ROW ════ -->
+  <div class="bot-row">
+
+    <!-- Left bot story -->
+    <div class="bot-story">
+      <div style="font-size:10px; color:#555; margin-bottom:2px;">நெல்லுக்கான ஒக்கத் தொகையை நிறுத்த கடாது</div>
+      <div class="bot-hed">டேட்டா பாதை விவசாய சங் கூட்டையில் வலியுறுத்தல்</div>
+      <div class="bot-subhed">
+        <span class="arrow-red">↩</span>
+        <span>டேட்டா பாதை விவசாய சங் கூட்டையில் வலியுறுத்தல்</span>
+      </div>
+      <div class="bot-cols">
+        <div>
+          <div class="chennai-tag">சென்னை</div>
+          <p>நாடு முழுவதும் நெல்லுக்கான ஒக்கத் தொகை திட்டத்தை நிறுத்தக் கூடாது என்று விவசாயிகள் கோரிக்கை விடுத்துள்ளனர். ஆன்லைன் விவசாய சங்கக் கூட்டம் இன்று நடைபெற்றது.</p>
+          <p>கூட்டத்தில் நூற்றுக்கணக்கான விவசாயிகள் கலந்துகொண்டனர். நெல்லுக்கான ஆதரவு விலை நிர்ணயம் மேலும் உயர்த்தப்பட வேண்டும் என்று வலியுறுத்தினர்.</p>
+          <p>மத்திய அரசு விவசாயிகளின் கோரிக்கைகளை கவனத்தில் எடுத்துக்கொள்ள வேண்டும் என்று தலைவர்கள் வலியுறுத்தினர்.</p>
+        </div>
+        <div>
+          <p style="font-weight:700; font-size:10px; margin-bottom:3px;">யோசனை சட்டங்கள்:</p>
+          <p>ஒப்பு சட்டங்கள் பார் 3 கிடப்பு போலான சட்டந் க்கு முக்கிய பாய்வு முதல்வர் மாறும் என்று முக்கிய முதல்வர் சட்டப் பட்ட சட்டங்கள் 3-க்கு செல்வதை குறிக்கிறது. ஏ.டி.எம் வைத்தி முக்கிய 3 பாய் செல்கிறது.</p>
+          <p>பொருளாதார வல்லுனர்கள் நெல்லுக்கான ஒக்கத் தொகை திட்டம் தொடர வேண்டும் என்று வலியுறுத்துகின்றனர். இது விவசாயிகளின் வாழ்வாதாரத்திற்கு அவசியம் என்று கூறுகின்றனர்.</p>
+          <p>மேலும் மின் சட்டங்கள், மறுய மாறும் மறுய சட்டங்கள் என்று கூட்டத்தில் முடிவெடுக்கப்பட்டது.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right bot story -->
+    <div class="bot-story">
+      <div style="font-size:10px; color:#555; margin-bottom:2px;">லஞ்ச ஒழிப்புத் துறை இயக்குநராக துறை குமார் பொறுப்பேற்பு</div>
+      <div class="bot-hed">லஞ்ச ஒழிப்புத் துறை இயக்குநராக துறை குமார் பொறுப்பேற்பு</div>
+      <div class="bot-subhed">
+        <span class="arrow-red">↩</span>
+        <span>ஒழிக்கான வெண்டிகளாரம், டேனிடாகள் தேவாசீர்வாதம் விடுப்பில் சென்றனர்</span>
+      </div>
+      <div class="bot-cols">
+        <div>
+          <div class="bot-photo">[துறை குமார் படம்]</div>
+          <div class="chennai-tag">சென்னை</div>
+          <p>லஞ்ச ஒழிப்புத் துறை இயக்குநராக ஐ.பி.எஸ் அதிகாரி துறை குமார் பொறுப்பேற்றுக்கொண்டார். அவர் நேற்று பதவியேற்பு விழாவில் கலந்துகொண்டார்.</p>
+          <p>டேனிடாகள் தேவாசீர்வாதம் இயக்குநர் பதவியிலிருந்து விடுப்பில் சென்றுள்ளார். அவர் விரைவில் ஓய்வு பெறுவார் என்று தெரிவிக்கப்படுகிறது.</p>
+          <p>துறை குமார் தமிழ்நாடு போலீசில் 25 ஆண்டுகளுக்கும் மேலாக பணியாற்றியவர். லஞ்ச வழக்குகளில் கடுமையான நடவடிக்கை எடுப்பார் என்று எதிர்பார்க்கப்படுகிறது.</p>
+        </div>
+        <div>
+          <p>இயக்குநர் பதவியேற்ற பின்னர் பத்திரிக்கையாளர்களிடம் பேசிய துறை குமார், லஞ்சம் அளிப்பவர்கள் மற்றும் வாங்குபவர்கள் இருவரையும் கடுமையாக தண்டிப்போம் என்று கூறினார்.</p>
+          <p>சட்டப்படி லஞ்ச ஒழிப்பு நடவடிக்கைகள் தீவிரப்படுத்தப்படும் என்றார். தமிழ்நாடு முழுவதும் திடீர் ஆய்வுகள் மேற்கொள்ளப்படும் என்று அறிவித்தார்.</p>
+          <p>அரசு ஊழியர்கள் ஊழலில் ஈடுபட்டால் உடனடி நடவடிக்கை எடுக்கப்படும் என்று எச்சரித்தார். பொதுமக்கள் புகார் அளிக்க தனி ஹெல்ப்லைன் அமைக்கப்படும்.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ FOOTER ROW ════ -->
+  <div class="footer-row">
+
+    <!-- Date block -->
+    <div class="footer-date-block">
+      <div class="big-date">13</div>
+      <div class="big-date">04.</div>
+      <div class="big-year">2026</div>
+      <div class="footer-date-label">வியாழக்கிழமை</div>
+      <div class="footer-date-label" style="margin-top:4px; font-size:8px;">30 பக்கங்கள்</div>
+    </div>
+
+    <!-- Panchang / Astro info -->
+    <div class="footer-info">
+      <div class="section-title">காலங்கிறாமம்</div>
+      <table>
+        <tr><td class="bold-td">சூரியன்:</td><td>தமிழ் (மேஷம்) 109 வகை. நேற்று தமிழ்<br>மதியம் 4.41 மணி. நூலக 4.41 மணி.</td></tr>
+        <tr><td class="bold-td">சந்திரன்:</td><td>குருவலி 5.17 மணி. நேற்று முடிவும்.</td></tr>
+        <tr><td class="bold-td">நட்சத்திரம்:</td><td>நூலக முடிவும் 1.53 மணி, நேற்று முடிவும்.</td></tr>
+        <tr><td class="bold-td">யோகம்:</td><td>சந்திரன் 8.58-7.00, 8.10-8.30.</td></tr>
+        <tr><td class="bold-td">கரணம்:</td><td>சூரியன் மதியம் 3.50 மணி, 4.00-4.30.</td></tr>
+        <tr><td class="bold-td">ராகுகாலம்:</td><td>சந்திரன் 4.41 மண (முடிவும் 4 மணி).</td></tr>
+        <tr><td class="bold-td">வட மூலம்:</td><td>கரணம் 4.41.</td></tr>
+        <tr><td></td><td>கரணம் 4.21</td></tr>
+      </table>
+      <div style="margin-top:4px; border-top:1px solid #ddd; padding-top:3px;">
+        <table style="width:100%; font-size:8.5px;">
+          <tr>
+            <td><span class="bold-td">சூரிய:</span> பக்கங்கள் 175-171</td>
+            <td>நேர்</td>
+          </tr>
+          <tr>
+            <td><span class="bold-td">சந்திர:</span> 174-177</td>
+            <td>முடிவு</td>
+          </tr>
+          <tr>
+            <td><span class="bold-td">ராகு:</span> பக்கங்கள் 170-110</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><span class="bold-td">கரணம்:</span> 4.21</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Nallathe ad -->
+    <div class="footer-ad1">
+      <div class="nallathe-ad">
+        <div style="font-size:9px; color:#555; margin-bottom:3px;">சிறப்பு பார்வை | நுரையோரம்</div>
+        <div class="nallathe-title">நல்லதே<br>நடக்கும்</div>
+        <div class="nallathe-sub">தினசரி நம்பிக்கை செய்திகள்</div>
+        <div style="border-top:1px solid #1a5c1a; margin:3px 0; padding-top:3px; font-size:9px; color:#333;">
+          <div class="nallathe-name">கே.பி.வித்யாதரன்</div>
+          <div style="font-size:8px; color:#555;">Celebrating 100 years of Legacy</div>
+          <div style="font-size:8px; color:#888; margin-top:2px; font-style:italic;">நாளும் நம்பிக்கை, நாளும் நல்லது</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LKS Gold ad -->
+    <div class="footer-ad2">
+      <div class="lks-ad">
+        <div class="lks-legacy">Celebrating 100 years of Legacy</div>
+        <div style="width:50px; height:50px; background:#c8a000; border-radius:50%; margin:4px auto; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:900; color:#fff;">LKS</div>
+        <div class="lks-name">T.NAGAR LKS<br>GOLD HOUSE (P) LTD</div>
+        <div class="lks-since">SINCE 1925</div>
+        <div style="border-top:1px solid #c8a000; margin-top:4px; padding-top:4px;">
+          <div class="lks-addr">Usman Road, T.NAGAR<br>Ch - 17. Ph:2814 1111</div>
+          <div class="lks-slogan">"LKS - GOLD" IS CASH IN HAND</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end footer-row -->
+
+  <!-- FOOTER BOTTOM BAR -->
+  <div class="footer-bottom">
+    <div class="page-nums">
+      <div class="page-num-item">
+        <div class="num">↑</div>
+        <div>முந்தைய</div>
+      </div>
+      <div class="page-num-item">
+        <div class="num">1</div>
+        <div>முதல் பக்கம்</div>
+      </div>
+      <div class="page-num-item">
+        <div class="num">3</div>
+        <div>அடுத்த பக்கம்</div>
+      </div>
+    </div>
+    <div style="font-size:9px; color:#555;">OHH</div>
+  </div>
+
+</div><!-- end .page -->
+</body>
+</html>
